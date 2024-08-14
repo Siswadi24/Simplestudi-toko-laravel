@@ -27,4 +27,9 @@ Route::get('/logout', [LoginController::class, 'Logout'])->name('logout');
 
 //-- Route AddChart -- //
 Route::post('/addChart', [OrderController::class, 'Order'])->name('addChart');
+Route::post('/Konfirmasi', [OrderController::class, 'konfirmasiSimpan'])->name('Konfirmasi');
 Route::get('/Keranjang', [OrderController::class, 'Keranjang'])->name('Keranjang');
+Route::get('/Checkout', [OrderController::class, 'Checkout'])->name('checkout');
+Route::get('/checkout-List', [OrderController::class, 'checkoutList'])->name('checkoutList');
+Route::get('/confirm', [OrderController::class, 'confirm'])->name('confirm');
+Route::delete('/delete-keranjang{id_keranjang}', [OrderController::class, 'hapusKeranjang'])->name('delete-keranjang');

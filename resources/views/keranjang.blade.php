@@ -39,9 +39,9 @@
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{{ route('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="{{ route('Keranjang') }}"><i class="fa fa-shopping-cart active" ></i> Cart</a></li>
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
 					</div>
@@ -118,6 +118,15 @@
 							<td class="cart_total">
 								<p class="cart_total_price">Rp {{$dtkrj->harga * $dtkrj->jumlah}}</p>
 							</td>
+							<td class="cart_delete">
+								<form action="{{ route('delete-keranjang', $dtkrj->id_keranjang) }}" method="POST" style="display: inline;">
+									@csrf
+									@method('DELETE')
+									<button type="submit" class="btn btn-danger">
+										<i class="fa fa-trash"></i> Hapus
+									</button>
+								</form>
+    						</td>
 						</tr>
                         <?php $total= $total + ($dtkrj->jumlah * $dtkrj->harga); ?>
                         @endforeach
@@ -137,7 +146,7 @@
 						<ul>
 							<li>Total <span>Rp {{$total}}</span></li>
 						</ul>
-							<a class="btn btn-default check_out" href="">Check Out</a>
+							<a class="btn btn-default check_out" href="{{route('checkout')}}">Check Out</a>
 					</div>
 				</div>
 			</div>
