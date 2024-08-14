@@ -75,9 +75,9 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
+						{{-- <div class="fixed-search search_box pull-right">
 							<input type="text" placeholder="Search"/>
-						</div>
+						</div> --}}
 					</div>
 				</div>
 			</div>
@@ -164,7 +164,19 @@
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						@foreach ($dataBarangs as $dataBrng)
+						<div class="pull-right">
+							<form action="{{ route('search') }}">
+								<input type="text" placeholder="Search" name="search_produk"/>
+								<button type="submit"><i class="fa fa-search"></i></button>
+							</form>
+						</div>
+						@if ($dataBarang->isEmpty())
+							<div class="alert alert-warning">
+								Maaf, pencarian Anda tidak ditemukan.
+							</div>
+						@endif
+						
+						@foreach ($dataBarang as $dataBrng)
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -208,8 +220,8 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
-					<p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+					<p class="pull-left">Copyright © 2024 E-IBOYY Inc. All rights reserved ❤️.</p>
+					<p class="pull-right">Designed by <span>IBOYY LOVE ❤️</span></p>
 				</div>
 			</div>
 		</div>

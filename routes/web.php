@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [UtamaController::class, 'index']);
+Route::get('/search', [UtamaController::class, 'searchProduk'])->name('search');
 Route::post('/pushData', [UtamaController::class, 'store']);
 
 //-- Route Login & register -- //

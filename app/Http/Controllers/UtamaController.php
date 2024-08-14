@@ -5,12 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use Illuminate\Http\Request;
 
+use function Laravel\Prompts\table;
+
 class UtamaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
         $dataBarang = Barang::all();
-        return view('utama', ['dataBarangs' => $dataBarang]);
+
+        // $search = $request->input('search_produk');
+        // $dataBarangSearch = Barang::where('nama_produk', 'like', '%' . $search . '%')->get();
+
+        // $data = [
+        //     'tbl_barang' => $dataBarang,
+        //     'search' => $search,
+        //     'hasResults' => $dataBarangSearch->isNotEmpty()
+        // ];
+
+        // ddd($dataBarangSearch);
+
+        return view('utama', compact('dataBarang'));
+    }
+
+    public function searchProduk(Request $request)
+    {
+        $search = $request->input('search_produk');
+        $dataBarang = Barang::where('nama_produk', 'like', '%' . $search . '%')->get();
+
+        $data = [
+            'data_produk' => $dataBarang,
+            'search' => $search,
+            'hasResults' => $dataBarang->isNotEmpty()
+        ];
+
+        return view('utama', compact('dataBarang'));
     }
 
     public function store(Request $request)
