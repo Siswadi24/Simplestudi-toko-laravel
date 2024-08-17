@@ -162,14 +162,16 @@
 				</div>
 				
 				<div class="col-sm-9 padding-right">
+					<div class="pull-right">
+						<form action="/">
+							<input type="text" placeholder="Search" name="search_produk" value="{{ Request::get('search_produk') }}"/>
+							<button type="submit"><i class="fa fa-search"></i></button>
+						</form>
+					</div>
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						<div class="pull-right">
-							<form action="{{ route('search') }}">
-								<input type="text" placeholder="Search" name="search_produk"/>
-								<button type="submit"><i class="fa fa-search"></i></button>
-							</form>
-						</div>
+						
+						
 						@if ($dataBarang->isEmpty())
 							<div class="alert alert-warning">
 								Maaf, pencarian Anda tidak ditemukan.

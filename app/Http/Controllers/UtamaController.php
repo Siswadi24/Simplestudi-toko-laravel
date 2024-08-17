@@ -11,36 +11,33 @@ class UtamaController extends Controller
 {
     public function index(Request $request)
     {
-
-        $dataBarang = Barang::all();
-
-        // $search = $request->input('search_produk');
-        // $dataBarangSearch = Barang::where('nama_produk', 'like', '%' . $search . '%')->get();
-
-        // $data = [
-        //     'tbl_barang' => $dataBarang,
-        //     'search' => $search,
-        //     'hasResults' => $dataBarangSearch->isNotEmpty()
-        // ];
+        $search = $request->search_produk;
+        
+        if (strlen($search)) {
+            $dataBarang = Barang::where('nama_produk', 'like', '%' . $search . '%')->get();
+        }else {
+            $dataBarang = Barang::all();    
+        }
+        
 
         // ddd($dataBarangSearch);
 
-        return view('utama', compact('dataBarang'));
+        return view('utama')->with('dataBarang', $dataBarang);
     }
 
-    public function searchProduk(Request $request)
-    {
-        $search = $request->input('search_produk');
-        $dataBarang = Barang::where('nama_produk', 'like', '%' . $search . '%')->get();
+    // public function searchProduk(Request $request)
+    // {
+    //     // $search = $request->input('search_produk');
+    //     // $dataBarang = Barang::where('nama_produk', 'like', '%' . $search . '%')->get();
 
-        $data = [
-            'data_produk' => $dataBarang,
-            'search' => $search,
-            'hasResults' => $dataBarang->isNotEmpty()
-        ];
+    //     // $data = [
+    //     //     'data_produk' => $dataBarang,
+    //     //     'search' => $search,
+    //     //     'hasResults' => $dataBarang->isNotEmpty()
+    //     // ];
 
-        return view('utama', compact('dataBarang'));
-    }
+    //     return view('utama', compact('dataBarang'));
+    // }
 
     public function store(Request $request)
     {
