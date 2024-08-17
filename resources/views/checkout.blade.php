@@ -38,9 +38,9 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                <li><a class="active" href="{{ route('checkoutList') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                 <li><a href="{{ route('Keranjang') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+                                {{-- <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li> --}}
                             </ul>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="/" class="active">Home</a></li>
+                                <li><a href="/">Home</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
                                 <li><a href="{{route('confirm')}}">Confirm</a></li>
                             </ul>
@@ -105,7 +105,7 @@
                     </thead>
                     <tbody>
                         <?php $total = 0; ?>
-                        @foreach($checkout as $ckt)
+                        @forelse($checkout as $ckt)
                         <tr>
                             <td class="cart_product">
                                 <a href=""><img src="/data_file/{{$ckt->gambar}}" alt=""></a>
@@ -124,7 +124,11 @@
                             </td>
                         </tr>
                         <?php $total += ($ckt->jumlah * $ckt->harga) ?>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="6">Tidak ada data checkout.</td>
+                        </tr>
+                        @endforelse
 
                         <tr>
                             <td colspan="4">&nbsp;</td>

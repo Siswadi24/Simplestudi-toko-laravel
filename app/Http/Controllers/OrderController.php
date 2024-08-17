@@ -40,13 +40,21 @@ class OrderController extends Controller
 
     public function Checkout()
     {
-        $id_checkout = rand().rand().rand();
+        $id_checkout = rand() . rand() . rand(); // Generate unique ID for checkout
         $total = 0;
-        $dataKeranjang = DB::table('tbl_keranjang')->where('id_user', Session::get('id_user'))->get();
+        $user_id = Session::get('id_user');
+
+        // Ambil data keranjang untuk pengguna saat ini
+        $dataKeranjang = DB::table('tbl_keranjang')->where('id_user', $user_id)->get();
+
+        if ($dataKeranjang->isEmpty()) {
+            return redirect('/Keranjang')->with('error', 'Keranjang kosong! Tidak ada data untuk checkout.');
+        }
+
         foreach ($dataKeranjang as $dataKrj) {
-            $dataBarang = DB::table('tbl_barang')->where('id', $dataKrj->id_barang)->get();
-            foreach ($dataBarang as $dtBrng) {
-                $total += ($dtBrng->harga_produk * $dataKrj->jumlah);
+            $dataBarang = DB::table('tbl_barang')->where('id', $dataKrj->id_barang)->first();
+            if ($dataBarang) {
+                $total += ($dataBarang->harga_produk * $dataKrj->jumlah);
                 DB::table('tbl_detailCheckout')->insert([
                     'id_checkout' => $id_checkout,
                     'id_barang' => $dataKrj->id_barang,
@@ -57,18 +65,25 @@ class OrderController extends Controller
 
         DB::table('tbl_checkout')->insert([
             'id_checkout' => $id_checkout,
-            'id_user' => Session::get('id_user'),
+            'id_user' => $user_id,
             'total' => $total
         ]);
+
+        // Hapus data keranjang setelah checkout
+        DB::table('tbl_keranjang')->where('id_user', $user_id)->delete();
 
         return redirect('/checkout-List');
     }
 
+
     public function checkoutList()
     {
-        $checkout = DB::table('checkout')->get();
+        $user_id = Session::get('id_user');
+        $checkout = DB::table('checkout')->where('id_user', $user_id)->get();
+
         return view('checkout', ['checkout' => $checkout]);
     }
+
 
     public function confirm()
     {

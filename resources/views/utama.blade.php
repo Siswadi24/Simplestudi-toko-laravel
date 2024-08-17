@@ -43,7 +43,7 @@
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="{{ route('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="{{ route('checkoutList') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="{{ route('Keranjang') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
 								<li><a href="{{ route('logout') }}"><i class="fa fa-unlock"></i> Logout</a></li>
